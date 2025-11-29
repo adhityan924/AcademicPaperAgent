@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Knowledge Graph</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Academic Knowledge Graph</h1>
+            <p class="subtitle">Extract and visualize insights from research papers</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <div class="card">
+                    <h2>Upload Paper</h2>
+                    <form id="uploadForm">
+                        <div class="file-drop-area">
+                            <span class="fake-btn">Choose PDF</span>
+                            <span class="file-msg">or drag and drop here</span>
+                            <input class="file-input" type="file" name="paper" accept=".pdf" required>
+                        </div>
+                        <button type="submit" class="btn-primary" id="uploadBtn">
+                            <span>Process Paper</span>
+                            <div class="loader" id="uploadLoader"></div>
+                        </button>
+                    </form>
+                    <div id="uploadStatus" class="status-msg"></div>
+                </div>
+            </section>
+
+            <section class="graph-section">
+                <div class="card full-width">
+                    <div class="section-header">
+                        <h2>Knowledge Graph</h2>
+                        <button id="refreshBtn" class="btn-secondary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M23 4v6h-6M1 20v-6h6"></path>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                            </svg>
+                            Refresh Graph
+                        </button>
+                    </div>
+                    <div id="cy" class="graph-container"></div>
+
+                    <div class="text-view-container" style="margin-top: 2rem;">
+                        <h3>Graph Details (Text View)</h3>
+                        <div class="tabs">
+                            <button class="tab-btn active" data-tab="nodes-tab">Nodes</button>
+                            <button class="tab-btn" data-tab="edges-tab">Edges</button>
+                        </div>
+                        <div id="nodes-tab" class="tab-content active">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Label</th>
+                                        <th>Type</th>
+                                        <th>Properties</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="nodesBody"></tbody>
+                            </table>
+                        </div>
+                        <div id="edges-tab" class="tab-content">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Source</th>
+                                        <th>Target</th>
+                                        <th>Relation</th>
+                                        <th>Properties</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="edgesBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="papers-section">
+                <div class="card">
+                    <h2>Processed Papers</h2>
+                    <ul id="paperList" class="paper-list">
+                        <!-- List items will be injected here -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

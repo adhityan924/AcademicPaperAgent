@@ -1,0 +1,7 @@
+node_modules
+.env
+dist
+papers/*
+!papers/dummy.pdf
+.DS_Store
+*.log
