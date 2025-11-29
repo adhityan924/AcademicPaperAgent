@@ -5,8 +5,8 @@ A professional tool for extracting knowledge from academic papers (PDFs) and bui
 ## Tech Stack
 - **Language**: TypeScript (Node.js)
 - **Orchestration**: LangGraph.js
-- **LLM**: OpenAI GPT-4o (via LangChain)
-- **PDF Parser**: LlamaParse (via API)
+- **LLM**: Anthropic Claude Sonnet 4.5 (via LangChain)
+- **PDF Parser**: pdf-parse (Local)
 - **Database**: Postgres
 
 ## Setup
@@ -21,9 +21,8 @@ A professional tool for extracting knowledge from academic papers (PDFs) and bui
     ```bash
     cp .env.example .env
     ```
-    - `OPENAI_API_KEY`: Your OpenAI API key.
+    - `ANTHROPIC_API_KEY`: Your Anthropic API key.
     - `DATABASE_URL`: Your Postgres connection string.
-    - `LLAMA_CLOUD_API_KEY`: Your LlamaCloud API key.
 
 3.  **Database Setup**:
     The application will automatically apply the schema in `src/schema.sql` if it doesn't exist, but you can also run it manually.
