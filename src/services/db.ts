@@ -12,6 +12,9 @@ export class GraphStore {
         const connectionString = process.env.DATABASE_URL || 'postgresql://localhost:5432/academic_agent';
         this.pool = new Pool({
             connectionString,
+            ssl: {
+                rejectUnauthorized: false
+            }
         });
 
         this.initSchema();

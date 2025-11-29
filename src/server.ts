@@ -4,6 +4,10 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import { GraphStore } from './services/db';
+import dns from 'dns';
+
+// Force IPv4 for Node.js 17+ (fixes Render ENETUNREACH)
+dns.setDefaultResultOrder('ipv4first');
 
 const app = express();
 const port = process.env.PORT || 3000;
