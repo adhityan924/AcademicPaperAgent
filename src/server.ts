@@ -6,7 +6,7 @@ import fs from 'fs';
 import { GraphStore } from './services/db';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Initialize DB
 const db = new GraphStore();
@@ -139,6 +139,6 @@ app.get('/api/graph', async (req, res) => {
     }
 });
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(Number(port), '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${port}`);
 });
