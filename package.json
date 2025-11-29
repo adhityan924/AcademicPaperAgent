@@ -4,7 +4,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc && cp src/schema.sql dist/schema.sql",
-    "start": "node dist/server.js",
+    "start": "node --dns-result-order=ipv4first dist/server.js",
     "dev": "ts-node src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
