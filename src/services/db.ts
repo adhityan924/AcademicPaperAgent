@@ -2,14 +2,42 @@ import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+import dns from 'dns';
+import { URL } from 'url';
+import { promisify } from 'util';
 
 dotenv.config();
 
+const resolve4 = promisify(dns.resolve4);
+
 export class GraphStore {
-    private pool: Pool;
+    private pool!: Pool;
 
     constructor() {
-        const connectionString = process.env.DATABASE_URL || 'postgresql://localhost:5432/academic_agent';
+        this.initPool();
+    }
+
+    private async initPool() {
+        let connectionString = process.env.DATABASE_URL || 'postgresql://localhost:5432/academic_agent';
+
+        try {
+            // Manually resolve hostname to IPv4 to bypass Render's IPv6 issues
+            const parsedUrl = new URL(connectionString);
+            const hostname = parsedUrl.hostname;
+
+            if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+                console.log(`Resolving ${hostname} to IPv4...`);
+                const addresses = await resolve4(hostname);
+                if (addresses && addresses.length > 0) {
+                    console.log(`Resolved ${hostname} to ${addresses[0]}`);
+                    parsedUrl.hostname = addresses[0];
+                    connectionString = parsedUrl.toString();
+                }
+            }
+        } catch (error) {
+            console.error('DNS resolution failed, falling back to original connection string:', error);
+        }
+
         this.pool = new Pool({
             connectionString,
             ssl: {
